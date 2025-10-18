@@ -3,373 +3,533 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>20/10</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<title>💐 20/10</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --pink-1:#ff6f91;
-    --bg: linear-gradient(180deg,#fff8fb,#fff);
-    --card:#fffafc;
-    --shadow: 0 12px 30px rgba(0,0,0,0.12);
-    --text:#382434;
+.skip-btn{
+  position:absolute;
+  top:20px;
+  right:20px;
+  padding:8px 16px;
+  background:linear-gradient(90deg,#ffc2d8,#ff87b5);
+  color:#fff;
+  border:none;
+  border-radius:20px;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(255,100,150,.3);
+  transition:transform .2s;
+}
+.skip-btn:hover{transform:scale(1.08)}
+.to-letter{
+  position:absolute;
+  bottom:40px;
+  left:50%;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg,#ff8fb1,#ff5d9e);
+  color:#fff;
+  font-size:18px;
+  font-weight:600;
+  border:none;
+  border-radius:30px;
+  padding:10px 28px;
+  cursor:pointer;
+  box-shadow:0 6px 16px rgba(255,100,150,.4);
+  opacity:0;
+  transition:opacity .6s ease, transform .3s ease;
+}
+.to-letter.show{
+  opacity:1;
+  transform:translateX(-50%) scale(1);
+}
+.hidden{display:none;}
+  
+:root{
+  --pink-1:#ff7ea8;
+  --pink-2:#ffe4ef;
+  --text:#472b3a;
+  --card-bg:linear-gradient(180deg,#fff,#fff9fc);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Poppins,sans-serif;
+  color:var(--text);
+  overflow-x:hidden;
+  background:linear-gradient(180deg,#fff7fb,#fffafc);
+}
+
+/* ================== INTRO ================== */
+.intro{
+  position:fixed;inset:0;
+  background:radial-gradient(circle at center,#fff0f6,#ffd1e2,#ffe7f0);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  z-index:9999;animation:fadeIn 1s ease;
+}
+.intro h1{font-family:'Playfair Display',serif;font-size:44px;color:#a1345b;opacity:0;transform:translateY(40px);animation:slideUp 1.4s ease forwards;}
+.intro p{font-size:18px;color:#6a3b50;margin-top:10px;opacity:0;transform:translateY(40px);animation:slideUp 1.4s ease .4s forwards;}
+.start-btn{margin-top:30px;padding:14px 36px;border:none;border-radius:30px;background:linear-gradient(90deg,#ff99b9,#ff5f98);color:#fff;font-weight:600;font-size:18px;cursor:pointer;box-shadow:0 10px 25px rgba(255,120,160,.4);opacity:0;transform:scale(.9);animation:popIn 1.4s ease .8s forwards;transition:transform .2s;}
+.start-btn:hover{transform:scale(1.05)}
+.flower {
+  position: fixed;
+  top: -50px;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 30% 30%, #ff9ac9, #ff4f94 60%);
+  border-radius: 60% 40% 60% 40%;
+  opacity: 0.9;
+  pointer-events: none;
+  animation: fall linear forwards;
+  z-index: 9999;
+  box-shadow: 0 0 8px rgba(255,150,200,0.5);
+}
+@keyframes fall {
+  0% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
   }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,system-ui,Roboto,Arial;color:var(--text)}
-  header{padding:18px;text-align:center;background:linear-gradient(90deg,#ffdfe8,#fff1f6);box-shadow:0 6px 18px rgba(0,0,0,0.06)}
-  header h1{margin:0;font-family:'Playfair Display',serif;font-size:26px;color:#5b2340}
+  25% {
+    transform: translateX(20px) rotate(90deg);
+  }
+  50% {
+    transform: translateX(-20px) rotate(180deg);
+  }
+  75% {
+    transform: translateX(15px) rotate(270deg);
+  }
+  100% {
+    top: 100vh;
+    transform: translateX(-30px) rotate(360deg);
+    opacity: 0;
+  }
+}
 
-  /* layout */
-  .wrap{max-width:1200px;margin:26px auto;padding:18px;display:grid;grid-template-columns:1fr 460px;gap:26px;align-items:start}
-  @media(max-width:1024px){.wrap{grid-template-columns:1fr 360px}}
-  @media(max-width:820px){.wrap{grid-template-columns:1fr;padding:12px}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{to{opacity:1;transform:translateY(0)}}
+@keyframes popIn{to{opacity:1;transform:scale(1)}}
 
-  /* question card */
-  .card{background:linear-gradient(180deg,var(--card),#fff);border-radius:14px;padding:28px;box-shadow:var(--shadow);min-height:320px}
-  .topline{display:flex;justify-content:space-between;align-items:center;gap:12px}
-  .title{font-family:'Playfair Display',serif;font-size:26px;color:var(--pink-1);margin:0}
-  .sub{color:#6d5866;font-size:14px}
-  .question{margin-top:18px;font-size:22px;font-weight:700}
-  .options{display:flex;flex-direction:column;gap:12px;margin-top:16px}
-  .opt{padding:14px 16px;border-radius:12px;background:#fff;border:1px solid rgba(200,130,150,0.08);font-size:18px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.04);text-align:left;transition:transform .12s,background .2s}
-  .opt:hover{transform:translateY(-4px);background:#fff6f9}
-  .opt.correct{background:linear-gradient(90deg,#e6fff6,#dffaf0);border-color:rgba(80,200,170,0.14)}
-  .opt.wrong{background:linear-gradient(90deg,#fff0f0,#ffecec);border-color:rgba(255,120,120,0.10)}
-  .result{margin-top:12px;font-weight:800;color:var(--pink-1);min-height:28px}
-  .small{color:#7b6776;font-size:13px}
+/* ========== HEADER ========== */
+header{text-align:center;background:linear-gradient(90deg,#fff1f6,#fff9fc);padding:20px;box-shadow:0 6px 18px rgba(0,0,0,0.05);display:none;}
+header h1{margin:0;font-family:'Playfair Display',serif;color:#5b2340;font-size:26px;}
 
-  /* right: slideshow */
-  .side{display:flex;flex-direction:column;gap:18px;align-items:center}
-  .flip-wrap{width:100%;max-width:420px;height:320px;perspective:1200px;border-radius:14px;overflow:visible}
-  .flipper{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .8s ease}
-  .card-face{position:absolute;inset:0;border-radius:12px;backface-visibility:hidden;overflow:hidden;box-shadow:0 12px 36px rgba(0,0,0,0.14)}
-  .card-face img{width:100%;height:100%;object-fit:cover;display:block}
-  .face-front{transform:rotateY(0deg)}
-  .face-back{transform:rotateY(180deg)}
-  .flipped{transform:rotateY(180deg)}
+/* ========== LAYOUT ========== */
+.wrap{max-width:1200px;margin:26px auto;padding:20px;display:grid;grid-template-columns:1fr 460px;gap:26px;display:none;}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:16px}}
 
-  .meta{width:100%;max-width:420px;background:rgba(255,255,255,0.95);padding:12px;border-radius:12px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.06)}
-  .counter{font-weight:800;color:var(--pink-1);font-size:18px}
-  .controls{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px}
-  .controls input{padding:8px 10px;border-radius:10px;border:1px solid #f0d6df;font-size:14px}
-  .btn{padding:9px 12px;border-radius:10px;border:0;background:var(--pink-1);color:white;font-weight:700;cursor:pointer}
+/* ========== QUIZ ========== */
+.card{background:var(--card-bg);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.08);padding:26px;position:relative;z-index:5;animation:fadeIn 1s ease;}
+.title{font-family:'Playfair Display',serif;font-size:26px;color:var(--pink-1);margin:0}
+.sub{color:#7c5f70;font-size:14px}
+.question{margin-top:18px;font-size:22px;font-weight:700;color:#372434}
+.options{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.opt{padding:14px 16px;border-radius:12px;background:#fff;border:1px solid rgba(200,130,150,0.08);font-size:18px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.04);text-align:left;transition:transform .15s,background .2s;}
+.opt:hover{transform:translateY(-3px);background:#fff6f9}
+.opt.correct{background:linear-gradient(90deg,#e6fff6,#dffaf0)}
+.opt.wrong{background:linear-gradient(90deg,#fff0f0,#ffecec)}
+.result{margin-top:12px;font-weight:700;color:var(--pink-1);min-height:28px}
 
-  /* credit overlay (movie ending) */
-  .overlay{position:fixed;inset:0;background:rgba(8,6,10,0.78);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}
-  .overlay.show{display:flex}
-  .credit-modal{width:100%;max-width:1100px;border-radius:12px;background:transparent;display:flex;gap:18px;align-items:flex-start}
-  @media(max-width:1000px){.credit-modal{flex-direction:column;align-items:center}}
-  .film{width:140px;background:linear-gradient(180deg,#0b0b0b,#1a1a1a);border-radius:10px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 14px 40px rgba(0,0,0,0.6)}
-  .film .cell{width:80%;height:30px;background:#0c0c0c;border-radius:4px;box-shadow:inset 0 -2px 0 rgba(255,255,255,0.02)}
-  .film .perfs{margin-top:6px;display:flex;gap:6px;flex-direction:column}
-  .perf{width:16px;height:6px;background:#fff3;border-radius:3px;opacity:0.6}
+/* ========== SLIDE ========== */
+.side{display:flex;flex-direction:column;align-items:center;gap:18px;}
+.slide-wrap{width:100%;max-width:460px;height:320px;border-radius:14px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,0.1);position:relative;}
+.slide-track{display:flex;height:100%;transition:transform .8s cubic-bezier(.22,.9,.28,1);}
+.slide-track img{width:100%;height:100%;object-fit:cover;flex:0 0 100%;border-radius:14px;}
+.counter{font-weight:700;color:var(--pink-1);font-size:18px;text-align:center}
 
-  .credit-box{flex:1;position:relative;background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.6));border-radius:10px;padding:18px;overflow:hidden;min-height:360px}
-  .credit-scroll{position:absolute;left:0;right:0;bottom:-120%;text-align:center;color:#fff;font-size:20px;line-height:2;animation:creditMove 18s linear forwards}
-  @keyframes creditMove{0%{bottom:-120%}100%{bottom:120%}}
+/* ========== LETTER ========== */
+.letter-wrap{position:fixed;inset:0;background:rgba(10,6,10,0.45);display:none;align-items:center;justify-content:center;z-index:9999;}
+.letter-wrap.show{display:flex;animation:fadeIn .8s ease}
+.letter-card{width:90%;max-width:720px;background:linear-gradient(180deg,#fff,#fff9fc);border-radius:14px;padding:30px;box-shadow:0 30px 80px rgba(0,0,0,0.45);text-align:left;overflow:hidden;}
+.letter-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--pink-1);margin:0 0 10px}
+.typewriter{font-size:18px;color:#3b2a3a;white-space:pre-wrap;min-height:140px}
+.done-note{margin-top:14px;color:#6b5360;font-weight:600;text-align:right;opacity:0;transition:opacity .5s}
 
-  .credit-video{width:420px;border-radius:10px;overflow:hidden;box-shadow:0 12px 36px rgba(0,0,0,0.5)}
-  @media(max-width:1000px){.credit-video{width:92%}}
-
-  .close-credit{position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);color:#fff;padding:6px 8px;border-radius:8px;border:1px solid rgba(255,255,255,0.14);cursor:pointer;z-index:10}
-
-  /* toast */
-  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:28px;background:rgba(0,0,0,0.8);color:white;padding:10px 16px;border-radius:10px;z-index:20000;opacity:0;transition:opacity .25s}
-  .toast.show{opacity:1}
+/* ========== VIDEO TRANSITION ========== */
+.transition-video{
+  position:fixed;inset:0;background:#000;display:none;justify-content:center;align-items:center;z-index:9998;
+}
+.transition-video.show{display:flex;animation:fadeIn .6s ease forwards;}
+.transition-video video{width:100%;height:100%;object-fit:cover;}
+.transition-text{
+  position:absolute;bottom:15%;font-size:28px;color:#000000;font-family:'Playfair Display',serif;
+  text-shadow:0 0 12px rgba(255,255,255,.8);animation:fadeInOut 5s ease forwards;
+}
+@keyframes fadeInOut{
+  0%,100%{opacity:0;transform:translateY(20px);}
+  15%,85%{opacity:1;transform:translateY(0);}
+}
 </style>
 </head>
 <body>
 
-<header>
-  <h1>🌷 20/10 - Mừng Ngày Phụ Nữ</h1>
-</header>
+<!-- INTRO -->
+<div class="intro" id="intro">
+  <h1>💖 Chào mừng đến với ngày 20/10 💖</h1>
+  <p>Một hành trình nhỏ xinh để gửi yêu thương đến những người phụ nữ tuyệt vời 💐</p>
+  <button class="start-btn" onclick="startQuiz()">Bắt đầu ngay 🌸</button>
+</div>
 
-<main class="wrap" aria-live="polite">
-  <!-- left: quiz -->
-  <section class="card" id="quizCard" role="region" aria-label="Câu hỏi">
-    <div class="topline">
-      <h2 class="title" id="titleText">Câu hỏi 1 / 10</h2>
-      <div class="sub">Trả lời đúng để qua câu tiếp theo</div>
-    </div>
+<header><h1>🌷 Chào Mừng Ngày Nhà Giáo 20/10</h1></header>
 
-    <div class="question" id="questionText">...</div>
-
+<main class="wrap">
+  <section class="card" id="quizCard">
+    <h2 class="title" id="titleText">Câu hỏi 1 / 3</h2>
+    <p class="sub">Trả lời đúng để sang câu tiếp theo</p>
+    <div class="question" id="questionText"></div>
     <div class="options" id="optionsBox"></div>
-
-    <div class="result" id="resultBox" aria-live="assertive"></div>
-    <div class="small" style="margin-top:10px">🎯 Gợi ý: Chọn đáp án mà bạn thấy hợp lý — đúng sẽ tự chuyển</div>
+    <div class="result" id="resultBox"></div>
+    <button class="skip-btn" onclick="skipAll()">🎀 Bỏ qua</button>
   </section>
 
-  <!-- right: slideshow and controls -->
-  <aside class="side" aria-label="Ảnh minh họa">
-    <div class="flip-wrap" role="img" aria-label="Slideshow lật">
-      <div id="flipper" class="flipper">
-        <div class="card-face face-front"><img id="imgFront" src="" alt=""></div>
-        <div class="card-face face-back"><img id="imgBack" src="" alt=""></div>
-      </div>
-    </div>
-
-    <div class="meta">
-      <div class="counter" id="counterText">Câu 1 / 10</div>
-
-      <div class="controls" style="margin-top:12px">
-        <input id="creator" placeholder="Tên thực hiện (vd. Phát Hưng)" />
-        <button class="btn" id="saveCreator">Lưu</button>
-      </div>
-    </div>
+  <aside class="side">
+    <div class="slide-wrap"><div class="slide-track" id="slideTrack"></div></div>
+    <div class="counter" id="counterText">Câu 1 / 3</div>
   </aside>
 </main>
 
-<!-- credit overlay -->
-<div class="overlay" id="overlay" aria-hidden="true">
-  <div class="credit-modal">
-    <div class="film" aria-hidden="true">
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="perfs">
-        <div class="perf"></div>
-        <div class="perf"></div>
-        <div class="perf"></div>
-      </div>
-    </div>
-
-    <div class="credit-box" role="dialog" aria-label="Credits cuối phim">
-      <button class="close-credit" id="closeCredit">Đóng</button>
-      <div class="credit-scroll" id="creditScroll">
-        <!-- filled by JS -->
-      </div>
-    </div>
-
-    <div class="credit-video" id="videoBox" aria-hidden="false">
-      <!-- YouTube iframe visible -->
-      <iframe id="ytFrame" width="420" height="315"
-        src=""
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-        title="Nhạc nền"></iframe>
-    </div>
-  </div>
+<!-- VIDEO TRANSITION -->
+<div class="transition-video" id="transitionVideo">
+  <video id="transitionVid" preload="auto">
+    <source src="https://only-sapphire-dcsttrriyq.edgeone.app/tai_xuong.mp4" type="video/mp4">
+  </video>
+  <div class="transition-text">Phần trình diễn của trai đẹp B10 💌</div>
+  <button id="toLetterBtn" class="to-letter hidden" onclick="showLetter()">[=>] Chuyển</button>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- LETTER -->
+<div class="letter-wrap" id="letterWrap">
+  <div class="letter-card">
+    <h3 class="letter-title">💌 Lời chúc dành cho bạn</h3>
+    <div class="typewriter" id="letterText"></div>
+    <div class="done-note" id="doneNote">— Thân gửi, Trai Đẹp B10 🌸</div>
+  </div>
+</div>
+<audio id="bgMusic" loop preload="auto" src=""></audio>
 
 <script>
-/* ========== Data (edit easily) ========== */
 const questions = [
-  { q:"Ngày 20/10 ở Việt Nam là ngày gì?", options:["Ngày Nhà giáo", "Ngày Phụ nữ Việt Nam", "Ngày Quốc tế Thiếu nhi"], correct:1 },
-  { q:"Loài hoa thường dùng tặng người thương?", options:["Hoa hướng dương","Hoa hồng","Hoa lan"], correct:1 },
-  { q:"Từ nào diễn tả người phụ nữ tuyệt vời nhất?", options:["Nguy hiểm","Tỏa sáng","Lạnh lùng"], correct:1 },
-  { q:"Ai thường được tặng quà trong ngày 20/10?", options:["Bạn bè nam","Bạn bè nữ và người thân","Chỉ trẻ em"], correct:1 },
-  { q:"Màu dịu thường thấy trong ngày 20/10 là?", options:["Hồng","Xanh","Đen"], correct:0 },
-  { q:"Bạn thích món quà nào nhất?", options:["Hoa","Lời chúc","Cả hai"], correct:2 },
-  { q:"Người Việt thường tặng gì cho mẹ?", options:["Giày","Hoa và lời chúc","Xe hơi"], correct:1 },
-  { q:"Biểu hiện của lòng biết ơn là?", options:["Bực tức","Cảm ơn và trân trọng","Lờ đi"], correct:1 },
-  { q:"Món quà tinh thần ý nghĩa là?", options:["Lời chúc chân thành","Đồ vật đắt tiền","Im lặng"], correct:0 },
-  { q:"Bạn sẽ làm gì để tôn vinh phụ nữ?", options:["Thấy và lắng nghe","Phớt lờ","Cười nhạo"], correct:0 }
+  // --- Nhóm A ---
+  {
+    q: "Ngày 20/10 là ngày gì ở Việt Nam?",
+    opts: ["A. Ngày Nhà giáo Việt Nam", "B. Ngày Phụ nữ Việt Nam", "C. Ngày Quốc tế Phụ nữ"],
+    ans: 1,
+  },
+  {
+    q: "Tổ chức nào đại diện cho quyền và lợi ích hợp pháp của phụ nữ Việt Nam?",
+    opts: [
+      "Đoàn Thanh niên Cộng sản Hồ Chí Minh",
+      "Hội Liên hiệp Phụ nữ Việt Nam",
+      "Tổng Liên đoàn Lao động Việt Nam",
+    ],
+    ans: 1,
+  },
+  {
+    q: "Ngày Phụ nữ Việt Nam 20/10 được chính thức thành lập vào năm nào?",
+    opts: ["1954", "1930", "1945"],
+    ans: 1,
+  },
+  {
+    q: "Màu sắc thường tượng trưng cho tình yêu và nữ tính trong ngày 20/10 là gì?",
+    opts: ["Vàng", "Hồng hoặc Đỏ", "Xanh dương"],
+    ans: 1,
+  },
+  {
+    q: "Loài hoa nào thường được tặng nhiều nhất trong Ngày Phụ nữ Việt Nam?",
+    opts: ["Hoa sen", "Hoa hồng", "Hoa cúc"],
+    ans: 1,
+  },
+  {
+    q: "Phẩm chất nổi bật của phụ nữ Việt Nam được Bác Hồ ca ngợi là gì?",
+    opts: [
+      "Anh hùng – Bất khuất – Trung hậu – Đảm đang",
+      "Hiền lành – Dịu dàng – Thông minh",
+      "Tự tin – Sáng tạo – Dám nghĩ dám làm",
+    ],
+    ans: 0,
+  },
+  {
+    q: "Thông điệp ý nghĩa nhất của Ngày Phụ nữ Việt Nam là gì?",
+    opts: [
+      "Khuyến khích thể thao cho nữ giới",
+      "Thúc đẩy kinh tế phát triển",
+      "Tôn vinh và khẳng định vai trò của phụ nữ",
+    ],
+    ans: 2,
+  },
+
+  // --- Nhóm B ---
+  {
+    q: "Ai là Chủ tịch Hội Liên hiệp Phụ nữ Việt Nam đầu tiên?",
+    opts: ["Nguyễn Thị Bình", "Nguyễn Thị Thập", "Nguyễn Thị Doan"],
+    ans: 1,
+  },
+  {
+    q: "Tên gọi thân mật người Việt thường dùng để gọi mẹ là gì?",
+    opts: ["Mợ", "Má/Mẹ", "Cụ"],
+    ans: 1,
+  },
+  {
+    q: "Hành động nào thể hiện sự tôn trọng phụ nữ trong gia đình?",
+    opts: [
+      "Để phụ nữ tự làm hết việc nhà",
+      "Chỉ tặng quà vào ngày lễ",
+      "Chia sẻ công việc nhà và lắng nghe ý kiến",
+    ],
+    ans: 2,
+  },
+  {
+    q: "Ai là người phụ nữ Việt Nam đầu tiên được phong học hàm Giáo sư?",
+    opts: ["Nguyễn Thị Doan", "Hoàng Xuân Sính", "Ngô Bá Thành"],
+    ans: 1,
+  },
+  {
+    q: "Câu ca dao nào nói lên vai trò tần tảo, hi sinh của người mẹ Việt Nam?",
+    opts: [
+      "Công cha như núi Thái Sơn, nghĩa mẹ như nước trong nguồn chảy ra",
+      "Bầu ơi thương lấy bí cùng, tuy rằng khác giống nhưng chung một giàn",
+      "Uống nước nhớ nguồn, ăn quả nhớ kẻ trồng cây",
+    ],
+    ans: 0,
+  },
+  {
+    q: "Từ 'phái đẹp' thường dùng để chỉ đối tượng nào trong xã hội?",
+    opts: ["Phụ nữ", "Nam giới", "Thiếu niên"],
+    ans: 0,
+  },
+  {
+    q: "Nhân vật nữ nào trong truyền thuyết Việt Nam được xem là mẹ của dân tộc?",
+    opts: ["Mỵ Châu", "Âu Cơ", "Tấm"],
+    ans: 1,
+  },
+
+  // --- Nhóm C ---
+  {
+    q: "Một lời chúc ý nghĩa nhất bạn có thể gửi đến phụ nữ ngày 20/10 là gì?",
+    opts: [
+      "Chúc luôn khỏe mạnh, hạnh phúc và được yêu thương",
+      "Chúc thật nhiều tiền",
+      "Chúc ngày càng xinh đẹp",
+    ],
+    ans: 0,
+  },
+  {
+    q: "Ngày 20/10 được gắn liền với sự kiện lịch sử nào của Việt Nam?",
+    opts: [
+      "Thành lập Đảng Cộng sản Việt Nam",
+      "Thành lập Hội Liên hiệp Phụ nữ Việt Nam (tiền thân là Hội Phụ nữ phản đế Việt Nam)",
+      "Chiến thắng Điện Biên Phủ",
+    ],
+    ans: 1,
+  },
+  {
+    q: "Hình ảnh nào được xem là biểu tượng cho sự kiên cường của người phụ nữ Việt Nam?",
+    opts: [
+      "Người mẹ gánh con và thúng hàng ra chợ",
+      "Bức tranh thiếu nữ bên hoa sen",
+      "Cô gái trong tà áo dài trắng",
+    ],
+    ans: 0,
+  },
+  {
+    q: "Thành tựu lớn nhất mà phụ nữ Việt Nam đóng góp cho đất nước là gì?",
+    opts: [
+      "Vừa tham gia xây dựng xã hội, vừa nuôi dạy thế hệ tương lai",
+      "Chỉ làm việc xã hội",
+      "Chỉ chăm sóc gia đình",
+    ],
+    ans: 0,
+  },
+  {
+    q: "Phẩm chất người phụ nữ hiện đại nên có là gì?",
+    opts: [
+      "Tự tin – Độc lập – Sáng tạo",
+      "Khiêm tốn – Phụ thuộc – Dễ dãi",
+      "Lặng lẽ – Ngại thay đổi",
+    ],
+    ans: 0,
+  },
+  {
+    q: "Nếu bạn muốn thể hiện tình cảm với phụ nữ ngày 20/10, điều nào ý nghĩa nhất?",
+    opts: [
+      "Thành thật bày tỏ lòng biết ơn, trân trọng và yêu thương",
+      "Tặng quà cho có hình thức",
+      "Gửi tin nhắn mẫu trên mạng",
+    ],
+    ans: 0,
+  },
 ];
 
-const imgs = [
-  "https://i.pinimg.com/736x/79/74/6a/79746a79f9571fabbc3fef4a2061eb3b.jpg",
-  "https://i.pinimg.com/736x/40/8b/19/408b195c47e8d016f4199bd297fda96f.jpg",
-  "https://i.pinimg.com/1200x/5c/96/b9/5c96b995b5dff0bdef9ed68a622c9497.jpg"
+const images = [
+  "https://i.pinimg.com/736x/06/c7/24/06c7243e0758425c1512d2bff96feec0.jpg", 
+  "https://i.pinimg.com/736x/f7/98/cb/f798cbd544f93357686feea2df8445d4.jpg", 
+  "https://i.pinimg.com/736x/88/ce/e7/88cee71d30a97a892cea63401d38dc58.jpg", 
+  "https://i.pinimg.com/736x/c9/16/52/c916527d5b6fb898fc7e25b94f67fd60.jpg", 
+  "https://i.pinimg.com/736x/4e/55/a7/4e55a7e44babf976ab712f7bfcb35f41.jpg",
+  "https://i.pinimg.com/736x/59/5c/18/595c186c4e208a060cd8ca4d24695454.jpg",
+  "https://i.pinimg.com/736x/c2/56/02/c25602a767585c0fff18eee91a358b37.jpg",
+  "https://i.pinimg.com/1200x/33/b0/d2/33b0d21a19d1bf5d483620a5eb1c9a1b.jpg",
+  "https://i.pinimg.com/736x/49/37/8d/49378dab8db9f9db9e10462c1654f1e6.jpg",
+  "https://i.pinimg.com/736x/c2/10/9b/c2109b148ab6395248787f7a2b99bf52.jpg",
+  "https://i.pinimg.com/736x/0a/bb/50/0abb501278cd0331fb830f285cd124a2.jpg",
+  "https://i.pinimg.com/736x/24/96/a6/2496a6fa6ef06c51aa71c34ba998814c.jpg",
+  "https://i.pinimg.com/736x/35/24/c0/3524c026676ed875026102b493e5b0ad.jpg",
+  "https://i.pinimg.com/736x/1e/f4/93/1ef493f6cf6a876a198ef5dd78632cb8.jpg",
+  "https://i.pinimg.com/736x/cb/10/04/cb1004e318652f341dba2ecee313d5ca.jpg",
+  "https://i.pinimg.com/736x/e7/99/a1/e799a1441a737d98e15e04f8e63659e7.jpg",
+  "https://i.pinimg.com/736x/7d/f8/5a/7df85a86c3b05a938d5896253d1ae1b4.jpg",
+  "https://i.pinimg.com/736x/e2/6f/11/e26f1105ea7345936ddfc78260c9b626.jpg",
+  "https://i.pinimg.com/736x/15/93/fc/1593fc9950bf5ee41dee669a86b873b1.jpg",
+  "https://i.pinimg.com/736x/22/d5/86/22d586f935cdc754751197229d4f4f3f.jpg",
+  "https://i.pinimg.com/736x/db/12/e5/db12e52f6a7090acd5f0cf5bb06fd34c.jpg",
+  "https://i.pinimg.com/1200x/bb/d5/25/bbd5256fe9c4389ff0a5057c67b76ca7.jpg",
+  "https://i.pinimg.com/736x/eb/e4/37/ebe4374d5119957140afac4df4d0e9e0.jpg",
+  "https://i.pinimg.com/736x/e7/98/a6/e798a622f9e85915df7f0aa804bffd00.jpg",
+  "https://i.pinimg.com/736x/07/c9/86/07c9865202554c3f718a87628dbc3bce.jpg",
+  "https://i.pinimg.com/736x/9f/c6/82/9fc682fd9ce4dfd8b89a20f1401cbd63.jpg",
+  "https://i.pinimg.com/736x/93/11/d8/9311d878b1d661ad7d800af3fe43f1ce.jpg",
+  "https://i.pinimg.com/736x/ce/d9/2c/ced92c907a6939731e0b7ee96c801435.jpg",
+  "https://i.pinimg.com/736x/43/29/fb/4329fbfce0babc27996957f79fc951d0.jpg",
+  "https://i.pinimg.com/736x/dd/7f/74/dd7f740fdb3f5a6bc9ddfa19b2429d5e.jpg",
 ];
-const YT_VIDEO_ID = "wME4xQ02GWo";
 
-let qIndex = 0;
-const total = questions.length;
-const questionText = document.getElementById('questionText');
-const optionsBox = document.getElementById('optionsBox');
-const resultBox = document.getElementById('resultBox');
-const titleText = document.getElementById('titleText');
-const counterText = document.getElementById('counterText');
 
-const flipper = document.getElementById('flipper');
-const imgFront = document.getElementById('imgFront');
-const imgBack = document.getElementById('imgBack');
+/* ELEMENTS */
+let idx=0;const total=questions.length;
+const titleText=document.getElementById('titleText');
+const qText=document.getElementById('questionText');
+const opts=document.getElementById('optionsBox');
+const res=document.getElementById('resultBox');
+const counterText=document.getElementById('counterText');
+const music=document.getElementById('bgMusic');
 
-const toastEl = document.getElementById('toast');
+/* SLIDES */
+const slideTrack=document.getElementById('slideTrack');
+images.forEach(src=>{let i=document.createElement('img');i.src=src;slideTrack.appendChild(i);});
+let slideIndex=0;
+setInterval(()=>{slideIndex=(slideIndex+1)%images.length;slideTrack.style.transform=`translateX(-${slideIndex*100}%)`;},3000);
 
-/* creator */
-const creatorInput = document.getElementById('creator');
-const saveCreator = document.getElementById('saveCreator');
-let creatorName = 'Hello';
-creatorInput.value = localStorage.getItem('creatorName') || creatorName;
-
-saveCreator.addEventListener('click', ()=>{
-  creatorName = (creatorInput.value.trim() || 'Phát Hưng');
-  localStorage.setItem('creatorName', creatorName);
-  showToast('Đã lưu tên người thực hiện');
-});
-
-/* Initialize flip images */
-let slidePos = 0;
-imgFront.src = imgs[0];
-imgBack.src = imgs[1 % imgs.length];
-
-/* flip function: do a smooth 3D flip to next image */
-let flipping = false;
-function flipToNext(){
-  if(flipping) return;
-  flipping = true;
-  // prepare back image to next
-  const nextIndex = (slidePos + 1) % imgs.length;
-  imgBack.src = imgs[nextIndex];
-  // trigger flip
-  flipper.classList.add('flipped');
-  // after transition, swap front/back images
-  setTimeout(()=>{
-    // swap srcs: front becomes current next
-    imgFront.src = imgs[nextIndex];
-    // reset transform
-    flipper.classList.remove('flipped');
-    // update slidePos
-    slidePos = nextIndex;
-    // set back to the following image
-    const following = (slidePos + 1) % imgs.length;
-    imgBack.src = imgs[following];
-    flipping = false;
-  }, 850); // slightly longer than CSS transition .8s
-}
-
-/* auto flip every 3s */
-setInterval(flipToNext, 3000);
-
-/* Render question */
-function renderQuestion(i){
-  qIndex = i;
-  const item = questions[i];
-  titleText.textContent = `Câu hỏi ${i+1} / ${total}`;
-  counterText.textContent = `Câu ${i+1} / ${total}`;
-  questionText.textContent = item.q;
-  optionsBox.innerHTML = '';
-  resultBox.textContent = '';
-
-  item.options.forEach((opt, j) => {
-    const b = document.createElement('button');
-    b.className = 'opt';
-    b.innerText = opt;
-    b.addEventListener('click', ()=> handleAnswer(j, b));
-    optionsBox.appendChild(b);
+/* QUIZ */
+function loadQuestion(){
+  const q=questions[idx];
+  titleText.textContent=`Câu hỏi ${idx+1} / ${total}`;
+  counterText.textContent=`Câu ${idx+1} / ${total}`;
+  qText.textContent=q.q;
+  opts.innerHTML="";res.textContent="";
+  q.opts.forEach((t,i)=>{
+    const b=document.createElement('button');
+    b.className="opt";b.textContent=t;
+    b.onclick=()=>select(i,b);
+    opts.appendChild(b);
   });
-
-  history.replaceState(null, '', '#question' + (i+1));
-  document.querySelector('.card').animate([{opacity:0, transform:'translateY(8px)'},{opacity:1, transform:'translateY(0)'}], {duration:280, easing:'ease-out'});
 }
-
-/* answer handler */
-let locked = false;
-function handleAnswer(choice, btn){
-  if(locked) return;
-  locked = true;
-  const correct = questions[qIndex].correct;
-  // disable all
-  const all = optionsBox.querySelectorAll('.opt');
-  all.forEach(x => x.disabled = true);
-
-  if(choice === correct){
-    btn.classList.add('correct');
-    resultBox.textContent = '✅ Chính xác! Sẽ chuyển sang câu tiếp theo...';
-    showToast('✅ Đúng rồi!');
+function select(i,btn){
+  const q=questions[idx];
+  const all=opts.querySelectorAll(".opt");
+  all.forEach(o=>o.disabled=true);
+  if(i===q.ans){
+    btn.classList.add("correct");
+    res.textContent="✅ Chính xác!";
     setTimeout(()=>{
-      const next = qIndex + 1;
-      if(next < total){
-        renderQuestion(next);
-        locked = false;
-      } else {
-        // finished: show credits and video
-        showCredits();
-      }
-    }, 1400);
-  } else {
-    btn.classList.add('wrong');
-    resultBox.textContent = '❌ Sai rồi — thử lại nhé!';
-    showToast('❌ Sai rồi!');
+      idx++;
+      if(idx<total)loadQuestion();else showVideo();
+    },1000);
+  }else{
+    btn.classList.add("wrong");
+    res.textContent="❌ Sai rồi, thử lại nhé!";
     setTimeout(()=>{
-      all.forEach(x => { x.disabled = false; x.classList.remove('wrong'); });
-      resultBox.textContent = '';
-      locked = false;
-    }, 900);
+      btn.classList.remove("wrong");
+      all.forEach(o=>o.disabled=false);
+      res.textContent="";
+    },900);
   }
 }
 
-/* start from hash or 0 */
-function start(){
-  const h = location.hash || '#question1';
-  const match = h.match(/question(\d+)/i);
-  let s = 0;
-  if(match){ const n = parseInt(match[1],10) - 1; if(!isNaN(n) && n>=0 && n<total) s = n; }
-  renderQuestion(s);
-}
-start();
-/* hash support */
-window.addEventListener('hashchange', ()=> {
-  const m = location.hash.match(/question(\d+)/i);
-  if(m){ const n = parseInt(m[1],10)-1; if(!isNaN(n) && n>=0 && n<total) renderQuestion(n); }
-});
-
-/* toast */
-let toastTimer = null;
-function showToast(msg){
-  clearTimeout(toastTimer);
-  toastEl.textContent = msg;
-  toastEl.classList.add('show');
-  toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 1600);
+/* VIDEO TRANSITION → LETTER */
+function showVideo(){
+  const videoWrap=document.getElementById('transitionVideo');
+  const video=document.getElementById('transitionVid');
+  videoWrap.classList.add('show');
+  video.currentTime=0;
+  video.play();
+  video.onended=()=>{
+    const btn = document.getElementById('toLetterBtn');
+    btn.classList.remove('hidden');
+    setTimeout(()=>btn.classList.add('show'),300);
+  };
 }
 
-/* =========== Credits & Video =========== */
-const overlay = document.getElementById('overlay');
-const creditScroll = document.getElementById('creditScroll');
-const closeCredit = document.getElementById('closeCredit');
-const ytFrame = document.getElementById('ytFrame');
+/* LETTER */
+const letterWrap=document.getElementById('letterWrap');
+const letterText=document.getElementById('letterText');
+const doneNote=document.getElementById('doneNote');
+const message=`
+💐 Chúc mừng Ngày Phụ nữ Việt Nam 20/10! 💖
 
-function buildCreditsHtml(){
-  const lines = [
-    '════════════ KẾT THÚC ════════════',
-    '',
-    `Thực hiện bởi: Trai Đẹp B10`,
-    '',
-    'Cảm ơn bạn đã tham gia thử thách',
-    '',
-    'Lời chúc:',
-    'Chúc bạn luôn rạng rỡ, mạnh mẽ và tràn đầy niềm vui.',
-    '',
-    'Hẹn gặp lại trong những chương trình tiếp theo.',
-    '',
-    '💐 20/10 — Với tất cả yêu thương 💐'
-  ];
-  return lines.map(l => `<div style="font-size:20px;margin:6px 0">${escapeHtml(l)}</div>`).join('');
-}
-function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+Mong bạn luôn giữ được nụ cười rạng rỡ, sự tự tin và lòng mạnh mẽ để chinh phục mọi mục tiêu. Bạn chính là nguồn cảm hứng và niềm vui cho mọi người xung quanh.
 
-function showCredits(){
-  // build credit content (if you'd like to include custom creator: use stored value)
-  creditScroll.innerHTML = buildCreditsHtml();
-  // reset animation (reflow hack)
-  creditScroll.style.animation = 'none';
-  void creditScroll.offsetWidth;
-  creditScroll.style.animation = null;
+Chúc bạn có một ngày thật ngọt ngào, nhận được thật nhiều hoa, quà và những lời yêu thương chân thành nhất.
 
-  // show overlay
-  overlay.classList.add('show');
-  overlay.setAttribute('aria-hidden','false');
+Yêu thương gửi đến Phái đẹp!
+`;
+function showLetter() {
+  letterWrap.classList.add('show');
+  letterText.textContent = "";
+  let i = 0;
 
-  // set youtube src (visible frame)
-  const vid = YT_VIDEO_ID;
-  // autoplay + loop (loop requires playlist param)
-  ytFrame.src = `https://www.youtube.com/embed/${vid}?rel=0&autoplay=1&loop=1&playlist=${vid}&controls=1&modestbranding=1`;
+  // 🌸 Bắt đầu hoa rơi ngay khi mở thư
+  startFlowerRain();
+
+  function type() {
+    if (i < message.length) {
+      letterText.textContent += message.charAt(i);
+      i++;
+      setTimeout(type, 30);
+    } else {
+      doneNote.style.opacity = 1;
+    }
+  }
+
+  type();
 }
 
-closeCredit.addEventListener('click', ()=>{
-  overlay.classList.remove('show');
-  overlay.setAttribute('aria-hidden','true');
-  ytFrame.src = '';
-});
-overlay.addEventListener('click', (e)=> { if(e.target === overlay){ overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); ytFrame.src=''; } });
+function skipAll(){
+  if(confirm("Bạn có chắc muốn bỏ qua phần trắc nghiệm không? 🌸")){
+    idx = total; // bỏ qua tất cả câu hỏi
+    showVideo(); // chuyển ngay sang phần video + thư
+  }
+}
 
-/* Prevent accidental full-width bars: ensure close button size and credit box layout stable */
-/* Nothing more needed */
+function startFlowerRain(){
+  setInterval(()=>{
+    const f = document.createElement("div");
+    f.className = "flower";
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.width = 10 + Math.random() * 16 + "px";
+    f.style.height = f.style.width;
+    f.style.background = `radial-gradient(circle at ${20+Math.random()*60}% ${20+Math.random()*60}%, 
+      hsl(${330+Math.random()*20}, 90%, ${70+Math.random()*10}%),
+      hsl(${330+Math.random()*20}, 80%, ${50+Math.random()*10}%)
+    )`;
+    f.style.animationDuration = 4 + Math.random() * 5 + "s";
+    f.style.animationDelay = Math.random() * 2 + "s";
+    f.style.borderRadius = `${40+Math.random()*30}% ${50+Math.random()*50}% ${40+Math.random()*30}% ${50+Math.random()*50}%`;
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(), 9000);
+  }, 250);
+}
 
+/* INTRO LOGIC */
+function startQuiz(){
+  const intro=document.getElementById('intro');
+  intro.style.transition='opacity 1s';
+  intro.style.opacity=0;
+  music.play().catch(()=>{});
+  setTimeout(()=>{
+    intro.remove();
+    document.querySelector('header').style.display='block';
+    document.querySelector('.wrap').style.display='grid';
+    loadQuestion();
+  },1000);
+}
 </script>
 </body>
 </html>
